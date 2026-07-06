@@ -8,6 +8,18 @@
 
 所有深度学习的核心计算——激活函数、损失函数、反向传播、优化器——都用纯 NumPy 从零实现，没有 PyTorch、TensorFlow 或任何自动微分工具。目标是在使用框架之前，真正理解每一行 `loss.backward()` 背后在发生什么。
 
+## 分支说明
+
+本仓库分两条分支：
+
+| 分支 | 内容 | 用途 |
+|------|------|------|
+| **`main`** | 我的参考实现（逐模块完成中），附 `notes/` 学习笔记 | 记录学习进度、查看答案 |
+| **`template`** | 无答案的练习起点，核心逻辑为 `raise NotImplementedError` | fork 下来自己动手实现 |
+
+> 想自己练：`git checkout template`（或直接 fork），按下方"实现流程"逐个模块填充。
+> 想看实现：`git checkout main`。
+
 ## 背景
 
 本项目是跟随邱锡鹏[《神经网络与深度学习》](https://nndl.github.io/)（"蒲公英书"）自学深度学习的配套实验。教材理论扎实但缺少动手实验，这个项目填补这个空缺。
@@ -34,7 +46,7 @@ phase0/
 └── README.md
 ```
 
-每个源文件包含完整的函数签名、docstring、数学公式和实现提示，但核心逻辑标记为 `raise NotImplementedError`，由你来填充。
+每个源文件都包含完整的函数签名、docstring、数学公式和实现提示。在 `template` 分支中核心逻辑标记为 `raise NotImplementedError` 待填充；`main` 分支为已填充的参考实现。
 
 ## 快速开始
 
