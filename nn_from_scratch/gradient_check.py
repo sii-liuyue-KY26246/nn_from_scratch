@@ -63,11 +63,8 @@ def eval_numerical_gradient_array(f, x, dout, h=1e-5):
         - 定义 scalar_f = lambda x: np.sum(f(x) * dout)
         - 然后调用 eval_numerical_gradient(scalar_f, x, h)
     """
-    # TODO
     scalar_f = lambda x: np.sum(f(x)*dout)
     return eval_numerical_gradient(scalar_f,x,h)
-
-    raise NotImplementedError
 
 
 def gradient_check(f, x, analytic_grad, h=1e-5, threshold=1e-5, verbose=True):
@@ -91,7 +88,6 @@ def gradient_check(f, x, analytic_grad, h=1e-5, threshold=1e-5, verbose=True):
         - 逐元素算相对误差，取最大值
         - 分母加 1e-8 防止除零
     """
-    # TODO
     num_grad = eval_numerical_gradient(f,x,h)
     ana_grad = analytic_grad
     err = np.abs(num_grad - ana_grad) / np.maximum(np.maximum(np.abs(num_grad),np.abs(ana_grad)),1e-8)
@@ -101,5 +97,3 @@ def gradient_check(f, x, analytic_grad, h=1e-5, threshold=1e-5, verbose=True):
         return True
     else:
         return False
-
-    raise NotImplementedError

@@ -5,6 +5,7 @@
 | 编号 | 笔记 | 对应代码 | 主题 |
 |------|------|----------|------|
 | 01 | [梯度检验](01_note_gradient_check.md) | `nn_from_scratch/gradient_check.py` | 有限差分数值梯度、ndindex 遍历、scalar_f/闭包、np.maximum vs np.max |
+| 02 | [激活函数](02_note_activations.md) | `nn_from_scratch/activations.py` | x/out 缓存技巧（缓存输出别再套激活）、np.maximum vs np.max |
 
 ---
 

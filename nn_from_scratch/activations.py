@@ -27,19 +27,11 @@ class Sigmoid(Module):
         self.cache = None
 
     def forward(self, x):
-        # TODO: 实现 sigmoid 前向传播
-        # 1. 计算 out = 1 / (1 + exp(-x))
-        # 2. 缓存 out 到 self.cache
-        # 3. 返回 out
-        raise NotImplementedError
-
+        self.cache = 1 / (1+np.exp(-x))
+        return self.cache
     def backward(self, dout):
-        # TODO: 实现 sigmoid 反向传播
-        # 1. 从 self.cache 取出 forward 的输出 out
-        # 2. 计算 dx = dout * out * (1 - out)
-        # 3. 返回 dx
-        raise NotImplementedError
-
+        x = self.cache
+        return dout * x * (1-x)
     def __repr__(self):
         return "Sigmoid()"
 
@@ -61,13 +53,10 @@ class ReLU(Module):
         self.cache = None
 
     def forward(self, x):
-        # TODO
-        raise NotImplementedError
-
+        self.cache = x
+        return np.maximum(0,x)
     def backward(self, dout):
-        # TODO
-        raise NotImplementedError
-
+        return dout * (self.cache > 0)
     def __repr__(self):
         return "ReLU()"
 
@@ -88,13 +77,11 @@ class LeakyReLU(Module):
         self.cache = None
 
     def forward(self, x):
-        # TODO
-        raise NotImplementedError
-
+        self.cache = x
+        return np.where(x>0,x,self.alpha*x)
     def backward(self, dout):
-        # TODO
-        raise NotImplementedError
-
+        x = self.cache
+        return dout * np.where(x>0,1,self.alpha)
     def __repr__(self):
         return f"LeakyReLU(alpha={self.alpha})"
 
@@ -115,13 +102,11 @@ class Tanh(Module):
         self.cache = None
 
     def forward(self, x):
-        # TODO
-        raise NotImplementedError
-
+        self.cache = np.tanh(x)
+        return self.cache
     def backward(self, dout):
-        # TODO
-        raise NotImplementedError
-
+        x = self.cache
+        return dout * (1- x**2)
     def __repr__(self):
         return "Tanh()"
 
@@ -147,12 +132,12 @@ class ELU(Module):
         self.cache = None
 
     def forward(self, x):
-        # TODO
-        raise NotImplementedError
-
+        out = np.where(x>0,x, self.alpha * (np.exp(x)-1))
+        self.cache = x, out
+        return self.cache[1]
     def backward(self, dout):
-        # TODO
-        raise NotImplementedError
-
+        x = self.cache[0]
+        out = self.cache[1]
+        return dout * np.where(x>0,1,(out + self.alpha))
     def __repr__(self):
         return f"ELU(alpha={self.alpha})"

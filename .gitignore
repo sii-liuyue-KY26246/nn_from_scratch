@@ -16,6 +16,10 @@ ENV/
 .vscode/
 .idea/
 
+# Claude Code 个人配置（工作流规则等，不入库）
+CLAUDE.local.md
+.claude/
+
 # OS
 .DS_Store
 Thumbs.db
