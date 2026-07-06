@@ -1,0 +1,8 @@
+# 运行库
+numpy>=1.24
+
+# 可视化（initializers 激活值分布等）
+matplotlib>=3.7
+
+# 测试
+pytest>=8.0
