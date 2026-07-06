@@ -30,16 +30,8 @@ def eval_numerical_gradient(f, x, h=1e-5):
         - 注意要修改 x 的值、算 f、再改回来，不要创建副本（效率）
         - 也可以用 np.copy 先保存原值
     """
-    grad = np.zeros_like(x)
-    for idx in np.ndindex(x.shape):
-        old = x[idx]
-        x[idx]=old+h
-        fpos=f(x)
-        x[idx]=old-h
-        fneg=f(x)
-        x[idx]=old
-        grad[idx]=(fpos-fneg)/(2*h)
-    return grad
+    # TODO
+    raise NotImplementedError
 
 
 def eval_numerical_gradient_array(f, x, dout, h=1e-5):
@@ -64,9 +56,6 @@ def eval_numerical_gradient_array(f, x, dout, h=1e-5):
         - 然后调用 eval_numerical_gradient(scalar_f, x, h)
     """
     # TODO
-    scalar_f = lambda x: np.sum(f(x)*dout)
-    return eval_numerical_gradient(scalar_f,x,h)
-
     raise NotImplementedError
 
 
@@ -92,14 +81,4 @@ def gradient_check(f, x, analytic_grad, h=1e-5, threshold=1e-5, verbose=True):
         - 分母加 1e-8 防止除零
     """
     # TODO
-    num_grad = eval_numerical_gradient(f,x,h)
-    ana_grad = analytic_grad
-    err = np.abs(num_grad - ana_grad) / np.maximum(np.maximum(np.abs(num_grad),np.abs(ana_grad)),1e-8)
-    if np.max(err) < threshold:
-        if verbose:
-            print(f"number_grad:{num_grad},analytic_grad{analytic_grad}")
-        return True
-    else:
-        return False
-
     raise NotImplementedError
