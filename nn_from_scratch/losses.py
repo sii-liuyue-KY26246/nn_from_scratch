@@ -28,9 +28,10 @@ def mse_loss(predictions, targets):
         - grad = (2/N) * (predictions - targets)
         - 如果输入是 (N,)，先想清楚 N 是什么
     """
-    # TODO
-    raise NotImplementedError
-
+    N = predictions.shape[0]
+    loss = np.sum((predictions - targets)**2) /N 
+    grad = (2/N) * (predictions - targets)
+    return loss,grad
 
 def binary_cross_entropy_loss(logits, targets):
     """二分类交叉熵损失。
@@ -52,8 +53,12 @@ def binary_cross_entropy_loss(logits, targets):
         - 数值稳定性：用 np.clip(p, 1e-12, 1 - 1e-12) 防止 log(0)
         - 梯度推导的最终结果很简洁: grad = (1/N) * (p - targets)
     """
-    # TODO
-    raise NotImplementedError
+    N = logits.shape[0]
+    p = 1 / (1 + np.exp(-logits))
+    p = np.clip(p,1e-12,1 - 1e-12)
+    loss = -(1/N) * np.sum(targets * np.log(p) +(1-targets)* np.log(1-p))
+    grad = (1/N) * (p - targets)
+    return loss,grad
 
 
 def softmax_cross_entropy_loss(logits, targets):
@@ -75,9 +80,17 @@ def softmax_cross_entropy_loss(logits, targets):
         - loss = -(1/N) * Σ log(probs[i, targets[i]])
         - 梯度非常简洁：grad = probs 的副本，然后 grad[i, targets[i]] -= 1，最后除以 N
     """
-    # TODO
-    raise NotImplementedError
+    N = logits.shape[0]
+    shifted = logits - np.max(logits, axis=1, keepdims=True)
+    probs = np.exp(shifted) / np.sum(np.exp(shifted), axis=1, keepdims= True)
+    
+    loss = -(1/N) * np.sum(np.log(probs[np.arange(N),targets]))
 
+    grad = np.copy(probs)
+    grad[np.arange(N),targets] -= 1
+    grad /= N
+
+    return loss,grad
 
 def svm_loss(scores, targets):
     """多类 SVM / Hinge 损失。
@@ -99,5 +112,16 @@ def svm_loss(scores, targets):
           对于正确类别：grad[i, y_i] -= (该样本违反 margin 的次数)
         - 最后除以 N
     """
-    # TODO
-    raise NotImplementedError
+    N = scores.shape[0]
+    correct = scores[np.arange(N),targets].reshape(-1,1)
+    margins = np.maximum(0, scores - correct + 1.0)
+    margins[np.arange(N),targets] = 0
+    loss = np.sum(margins) / N
+
+    mask = (margins>0).astype(float)
+    counts = mask.sum(axis=1)
+    grad = mask 
+    grad[np.arange(N),targets] = -counts
+    grad/=N
+
+    return loss,grad

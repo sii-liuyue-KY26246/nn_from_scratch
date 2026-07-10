@@ -6,6 +6,7 @@
 |------|------|----------|------|
 | 01 | [梯度检验](01_note_gradient_check.md) | `nn_from_scratch/gradient_check.py` | 有限差分数值梯度、ndindex 遍历、scalar_f/闭包、np.maximum vs np.max |
 | 02 | [激活函数](02_note_activations.md) | `nn_from_scratch/activations.py` | x/out 缓存技巧（缓存输出别再套激活）、np.maximum vs np.max |
+| 03 | [损失函数](03_note_losses.md) | `nn_from_scratch/losses.py` | 花式索引取正确类、softmax减max vs BCE clip、归一化除N（⚠️SVM待复习） |
 
 ---
 
